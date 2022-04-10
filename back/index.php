@@ -8,7 +8,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 $username = 'root';
 $password = 'password';
 
-$con = mysqli_connect("172.177.0.3:80","root","password");
+$con = mysqli_connect("localhost:3308","root","password");
 mysqli_select_db($con,"data");
 
 $sql = "insert into infos(
