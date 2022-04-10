@@ -5,8 +5,8 @@ header("Access-Control-Allow-Meyhods: POST");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-Width");
 
 
-$username = 'test';
-$password = 'test';
+$username = 'root';
+$password = 'password';
 
 $con = mysqli_connect("172.177.0.3:80","root","password");
 mysqli_select_db($con,"data");
