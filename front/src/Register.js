@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 const Register=(props)=>{
-    // let history = useNavigate();
+    let post = useNavigate();
     const[data, setData]=useState({
         username:"",
         password:""
@@ -28,8 +29,7 @@ const Register=(props)=>{
              if (result.data.Status === 'Invalid')
                 alert('Invalid');
             else{
-                // history(`/dashboard`)
-                console.log('C est bon');
+                post(`/post`)
             }
         })
     }
@@ -41,14 +41,14 @@ const Register=(props)=>{
                 </div>
 
                 <div>
-                    <p>Username</p>
+                    <p>Username:</p>
                     <input type="text" name="username" 
                     onChange={handleChange} value={data.username}
                     />
                 </div>
                 
                 <div>
-                    <p>Password</p>
+                    <p>Password:</p>
                     <input type="password" name="password" 
                     onChange={handleChange} value={data.password}
                     />
