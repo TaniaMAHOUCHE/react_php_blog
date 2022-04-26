@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Login=()=>{
-    let post = useNavigate();
+    let navigate = useNavigate();
+    let history = useNavigate();
     const [user,setUser]=useState({username:'',password:''})
     
     const handleChange=(e)=>{
@@ -19,18 +20,18 @@ const Login=()=>{
 
         console.log(sendData);
 
-        axios.post('http://localhost:2345', sendData)
-         .then((result)=>{
-             if (result.data.Status === '200'){
+        // axios.post('http://localhost/8080', sendData)
+        //  .then((result)=>{
+        //      if (result.data.Status === '200'){
                 
-                window.localStorage.setItem('username', result.data.username);
-                window.localStorage.setItem('username', result.data.username);
+        //         window.localStorage.setItem('username', result.data.username);
 
-                post(`/post`);
-            }else{
-                alert('Invalid User');
-            }
-        })
+        //         history(`/dashboard`);
+        //     }else{
+        //         //history(`/dashboard`);
+        //         alert('Invalid User');
+        //     }
+        // })
     }
 
     return(
@@ -53,7 +54,7 @@ const Login=()=>{
             </div>   
 
             <div>
-            <input type="submit" name="submit" value="Login"/>
+            <input type="submit" name="submit" value="Please Login"/>
             </div>
         </div>
         </form>
