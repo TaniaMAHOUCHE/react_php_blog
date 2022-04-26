@@ -3,14 +3,12 @@ version: '3.1'
 services:
     php:
         build:
-            context: ./back
+            context: .
             dockerfile: Dockerfile
         ports:
             - '2345:80'
-        depends_on:
-            - db
         volumes:
-            - ./back:/var/www/html
+            - ./app:/var/www/html
 
     db:
         image: 'mariadb'
@@ -18,9 +16,9 @@ services:
         environment:
             MYSQL_DATABASE: data
             MYSQL_ROOT_PASSWORD: password
-#        volumes:
-#            # Pour lancer un dump automatiquement au montage du conteneur
-#            - ./database/dump.sql:/docker-entrypoint-initdb.d/dump.sql
+        volumes:
+            # Pour lancer un dump automatiquement au montage du conteneur
+            - ./database/data.sql:/docker-entrypoint-initdb.d/dump.sql
 
 
     phpmyadmin:
@@ -28,20 +26,5 @@ services:
         restart: always
         ports:
             - '8080:80'
-        depends_on:
-            - db
         environment:
             - PMA_ARBITRARY=1
-
-    front:
-        build:
-            context: ./front
-            dockerfile : Dockerfile
-        tty: true
-        volumes:
-            - ./front:/front
-        ports:
-          - 3000:3000
-        depends_on:
-            - back
-
