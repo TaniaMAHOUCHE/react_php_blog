@@ -3,12 +3,14 @@ version: '3.1'
 services:
     php:
         build:
-            context: .
+            context: ./back
             dockerfile: Dockerfile
         ports:
             - '2345:80'
+        depends_on:
+            - db
         volumes:
-            - ./app:/var/www/html
+            - ./back:/var/www/html
 
     db:
         image: 'mariadb'
@@ -26,5 +28,20 @@ services:
         restart: always
         ports:
             - '8080:80'
+        depends_on:
+            - db
         environment:
             - PMA_ARBITRARY=1
+
+    front:
+        build:
+            context: ./front
+            dockerfile : Dockerfile
+        tty: true
+        volumes:
+            - ./front:/front
+        ports:
+          - 3000:3000
+        depends_on:
+            - back
+

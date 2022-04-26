@@ -1,35 +1,57 @@
 <?php
-header("Access-Control-Allow-Origin: http://localhost:3000");
+header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Headers: access");
-header("Access-Control-Allow-Meyhods: POST");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-Width");
+header("Access-Control-Allow-Methods: POST");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 
-$username = 'root';
-$password = 'password';
+// le nom du server est le nom du service qui contient ma database
+$servername = "db";
+$username = "root";
+$password = "password";
+$dbname = "data";
 
-$con = mysqli_connect("localhost:3308","root","password");
-mysqli_select_db($con,"data");
 
-$sql = "insert into infos(
-  username,
-  password
-  )
-  values('$username',
-          '$password'
-  )";
-$result = mysqli_query($con,$sql);
 
-if($result){
-  $response['data'] =array(
-    'status'=>'valid'
-  );
-  echo json_encode($response);
+try {
+    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+
+    // Insérer les données dans la table 
+
+
+    $sql = "INSERT INTO infos ( name, title, article) VALUES (:name, :title, :article)";
+    $data = [
+        ':name' => $_POST['name'],
+        ':title' => $_POST['title'] ,
+        ':article' => $_POST['article'],
+    ];
+
+    $stmt= $pdo->prepare($sql);
+    $stmt->execute($data);
+
+
+
+    // Supprimer les données dans la table
+
+
+
+    // Modifier les données dans la table
+
+    $sql = $pdo->prepare("SELECT * FROM infos") ;
+    $sql->execute(); 
+    $infoss = $sql->fetchAll(PDO::FETCH_ASSOC) ;
+    $sql->closeCursor() ;
+    $json_tranform = json_encode($infoss);
+
+    echo $json_tranform ;
+
+
+
+} catch (PDOException $e )  {
+    echo $e->getMessage();
+
+
 }
-else{
-  $response['data']=array(
-  'status'=>'invalid'
-  );
-  echo json_encode($response);
-}
+
 ?>
