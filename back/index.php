@@ -6,37 +6,23 @@ header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 
-// le nom du server est le nom du service qui contient ma database
 $servername = "db";
 $username = "root";
 $password = "password";
 $dbname = "data";
 
-
-
 try {
     $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 
-    // Insérer les données dans la table 
-
-
-    $sql = "INSERT INTO infos ( name, title, article) VALUES (:name, :title, :article)";
+    $sql = "INSERT INTO infos ( `pseudo`, `title`, `article`) VALUES (:pseudo, :title, :article)";
     $data = [
-        ':name' => $_POST['name'],
+        ':pseudo' => $_POST['pseudo'],
         ':title' => $_POST['title'] ,
         ':article' => $_POST['article'],
     ];
 
-    $stmt= $pdo->prepare($sql);
-    $stmt->execute($data);
-
-
-
-    // Supprimer les données dans la table
-
-
-
-    // Modifier les données dans la table
+    $statement= $pdo->prepare($sql);
+    $statement->execute($data);
 
     $sql = $pdo->prepare("SELECT * FROM infos") ;
     $sql->execute(); 
@@ -46,12 +32,9 @@ try {
 
     echo $json_tranform ;
 
-
-
-} catch (PDOException $e )  {
-    echo $e->getMessage();
-
-
+}
+catch(PDOException $e){
+    echo "Erreur : " . $e->getMessage();
 }
 
 ?>

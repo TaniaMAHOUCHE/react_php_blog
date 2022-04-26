@@ -20,15 +20,11 @@ const Login=()=>{
 
         console.log(sendData);
 
-        // axios.post('http://localhost/8080', sendData)
+        // axios.post('http://localhost:2345', sendData)
         //  .then((result)=>{
         //      if (result.data.Status === '200'){
-                
         //         window.localStorage.setItem('username', result.data.username);
-
-        //         history(`/dashboard`);
         //     }else{
-        //         //history(`/dashboard`);
         //         alert('Invalid User');
         //     }
         // })
@@ -36,27 +32,27 @@ const Login=()=>{
 
     return(
         <form onSubmit={submitForm}>
-        <div>
             <div>
-                <h1>Please Log In</h1>
-            </div>
+                <div>
+                    <h1>Please Log In</h1>
+                </div>
 
-            <div>
-            <p>Username:</p>
-            <input type="text" name="username"
-            onChange={handleChange} value={user.username} />
-            </div>
+                <div>
+                    <p>Username:</p>
+                    <input type="text" name="username"
+                    onChange={handleChange} value={user.pseudo} />
+                </div>
 
-            <div>
-            <p>Password</p>
-            <input type="password" name="password" 
-            onChange={handleChange} value={user.password} />
-            </div>   
+                <div>
+                    <p>Password</p>
+                    <input type="password" name="password" 
+                    onChange={handleChange} value={user.password} />
+                </div>   
 
-            <div>
-            <input type="submit" name="submit" value="Please Login"/>
+                <div>
+                    <input type="submit" name="submit" value="Please Login"/>
+                </div>
             </div>
-        </div>
         </form>
     )
 }
