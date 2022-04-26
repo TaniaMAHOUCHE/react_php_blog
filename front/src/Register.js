@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from 'axios';
 //import{useNavigate} from 'react-router-dom'
 
-const Register=(props)=>{
+const Register=()=>{
     const[data, setData]=useState({
         name:"",
         title:"",
@@ -25,7 +25,7 @@ const Register=(props)=>{
 
         console.log(sendData);
 
-        axios.post('http://localhost/8080', sendData)
+        axios.post('http://localhost:2345', sendData)
          .then((result)=>{
              if (result.data.Status === 'Invalid')
                 alert('Invalid');
