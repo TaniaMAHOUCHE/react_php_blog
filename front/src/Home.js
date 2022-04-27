@@ -7,7 +7,7 @@ const Home=()=>{
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <Link to="register" class="nav-link active" aria-current="page">Blog</Link>
+                <Link to="blog" class="nav-link active" aria-current="page">Blog</Link>
               </li>
               <li class="nav-item">
                 <Link to="login" class="nav-link active" aria-current="page">Login</Link>

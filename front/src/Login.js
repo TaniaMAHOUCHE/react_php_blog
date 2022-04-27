@@ -1,10 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 const Login=()=>{
-    let navigate = useNavigate();
-    let history = useNavigate();
     const [user,setUser]=useState({username:'',password:''})
     
     const handleChange=(e)=>{
@@ -13,23 +9,25 @@ const Login=()=>{
 
     const submitForm=(e)=>{
         e.preventDefault();
-        const sendData = {
-            username:user.username,
-            password:user.password
-        }
+        const formData = new FormData(this) ;
+        formData.append('pseudo',user.pseudo) ;
+        formData.append('password',user.password)
 
-        console.log(sendData);
-
-        // axios.post('http://localhost:2345', sendData)
-        //  .then((result)=>{
-        //      if (result.data.Status === '200'){
-        //         window.localStorage.setItem('username', result.data.username);
-        //     }else{
-        //         alert('Invalid User');
-        //     }
-        // })
-    }
-
+       fetch('http://localhost:2345',
+       {
+           method : 'POST' ,
+           body : formData ,
+       })
+        .then((response)=>{
+            return response.json() ;
+        }) 
+        .then((resp)=>{
+            //window.localStorage.setItem('pseudo', result.data.pseudo);
+        })
+        .catch(error =>{
+            alert('Invalid user');
+        })
+}
     return(
         <form onSubmit={submitForm}>
             <div>
@@ -39,7 +37,7 @@ const Login=()=>{
 
                 <div>
                     <p>Username:</p>
-                    <input type="text" name="username"
+                    <input type="text" name="pseudo"
                     onChange={handleChange} value={user.pseudo} />
                 </div>
 
@@ -50,7 +48,7 @@ const Login=()=>{
                 </div>   
 
                 <div>
-                    <input type="submit" name="submit" value="Please Login"/>
+                    <input type="submit" name="submit" value="Login"/>
                 </div>
             </div>
         </form>
